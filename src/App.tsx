@@ -1,4 +1,4 @@
-import "./App.scss";
+import "./styles/slider.scss";
 import { Slider } from "./components/Slider";
 import { slidesData } from "./data/slidesData";
 
