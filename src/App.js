@@ -11,7 +11,7 @@ function App() {
     className: "page-wrapper"
   }, /*#__PURE__*/React.createElement("header", {
     className: "hero-header"
-  }, /*#__PURE__*/React.createElement("h1", null, "The Wanderer's Archives"), /*#__PURE__*/React.createElement("p", null, "A single-page showcase of atmospheric realms.")), /*#__PURE__*/React.createElement("section", {
+  }, /*#__PURE__*/React.createElement("h1", null, "Shyann's Responsive Slider"), /*#__PURE__*/React.createElement("p", null, "A single-page showcase for a dynamic slider.")), /*#__PURE__*/React.createElement("section", {
     className: "interactive-showcase"
   }, /*#__PURE__*/React.createElement(_Slider.Slider, {
     slides: _slidesData.slidesData

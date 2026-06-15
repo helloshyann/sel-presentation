@@ -5,8 +5,8 @@ function App() {
 	return (
 		<main className="page-wrapper">
 			<header className="hero-header">
-				<h1>The Wanderer's Archives</h1>
-				<p>A single-page showcase of atmospheric realms.</p>
+				<h1>Shyann's Responsive Slider</h1>
+				<p>A single-page showcase for a dynamic slider.</p>
 			</header>
 
 			{/* Injecting our beautiful custom slider */}

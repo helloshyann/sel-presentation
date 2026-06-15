@@ -4,7 +4,7 @@
 .slider-container {
 	position: relative;
 	width: 100%;
-	max-width: 1400px; // Gives it that wide, cinematic billboard span
+	max-width: 1024px; // Gives it that wide, cinematic billboard span
 	margin: 0 auto;
 	padding: 0 4rem; // Generates breathing room for the floating arrow buttons
 	box-sizing: border-box;
@@ -19,7 +19,6 @@
 		flex-direction: row;
 		width: 100%;
 		height: var(--breakpoint-mobile);
-		transition: var(--transition-smooth);
 	}
 
 	// --- Split Two-Column Slide System ---
@@ -33,7 +32,7 @@
 		flex-direction: row; // Split columns
 		align-items: center;
 		box-sizing: border-box;
-		padding: 2rem 6rem; // Generous inner breathing room
+		padding: 2rem 5rem; // Generous inner breathing room
 
 		@include respond-to("tablet") {
 			flex-direction: column-reverse; // Flip layout on mobile/tablet frames
@@ -85,7 +84,7 @@
 				max-width: 540px;
 			}
 
-			.btn-learn-more {
+			.slider-button {
 				background-color: var(--bright-blue);
 				color: white;
 				border: none;
