@@ -1,0 +1,38 @@
+/* --- 1. Imports --- */
+/* --- 2. Root --- */
+
+:root {
+	// Fonts
+	// Root Font Size
+	// Dynamic Font Sizes
+	// Spacing
+	// Brand Colors
+	--bright-blue: #1a3fd8;
+	--dark-blue: #003a5d;
+	--grey-blue: #728fa1;
+	--green: #40cb6c;
+	--off-white: #f2f5f9;
+	// Breakpoints
+	$breakpoint-mobile: 480px;
+	$breakpoint-tablet: 768px;
+	$breakpoint-desktop: 1024px;
+}
+
+/* --- 3. Mixins --- */
+@mixin respond-to($breakpoint) {
+	@if $breakpoint == "mobile" {
+		@media screen and (max-width: $breakpoint-mobile) {
+			@content;
+		}
+	} @else if $breakpoint == "tablet" {
+		@media screen and (max-width: $breakpoint-tablet) {
+			@content;
+		}
+	} @else if $breakpoint == "desktop" {
+		@media screen and (max-width: $breakpoint-desktop) {
+			@content;
+		}
+	}
+}
+ test
+ 
