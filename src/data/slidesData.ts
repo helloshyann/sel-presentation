@@ -31,4 +31,20 @@ export const slidesData: SlideItem[] = [
 		imageUrl:
 			"https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?auto=format&fit=crop&w=1200&q=80",
 	},
+	{
+		id: 4,
+		title: "The Uncanny Metro",
+		subtitle:
+			"An abandoned underground platform frozen in time, humming with a strange, quiet electricity.",
+		imageUrl:
+			"https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80",
+	},
+	{
+		id: 5,
+		title: "Lantern-Lit Alleys",
+		subtitle:
+			"Wander down winding neon and paper-lantern paths in a midnight city that never sleeps.",
+		imageUrl:
+			"https://images.unsplash.com/photo-1540959733332-eab4deceeaf7?auto=format&fit=crop&w=1200&q=80",
+	},
 ];

@@ -1,41 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { type SlideItem } from "../data/slidesData";
+import "../styles/slider.scss";
 
-// Tell our component it expects an array of slides as a "prop"
 interface SliderProps {
 	slides: SlideItem[];
 }
 
 export const Slider: React.FC<SliderProps> = ({ slides }) => {
-	// This state tracker will keep track of which slide index is currently active
 	const [currentIndex, setCurrentIndex] = useState<number>(0);
+	const [isPaused, setIsPaused] = useState<boolean>(false);
 
-	// If there are no slides, don't break the page
+	// Determine the maximum index we can slide to without showing empty space
+	const visibleSlides = 3;
+	const maxIndex = slides.length - visibleSlides;
+
+	// Handler to advance forward
+	const nextSlide = () => {
+		setCurrentIndex((prevIndex) => (prevIndex >= maxIndex ? 0 : prevIndex + 1));
+	};
+
+	// Handler to go backward
+	const prevSlide = () => {
+		setCurrentIndex((prevIndex) =>
+			prevIndex === 0 ? maxIndex : prevIndex - 1,
+		);
+	};
+
+	// Autoplay Logic with Pause State Listener
+	useEffect(() => {
+		// If the user is hovering, do not spin up the timer
+		if (isPaused) return;
+
+		// Set a 10-second interval (10000 milliseconds)
+		const timer = setInterval(() => {
+			nextSlide();
+		}, 10000);
+
+		// CRITICAL CLEANUP: Wipes the timer when the component unmounts or pause changes
+		return () => clearInterval(timer);
+	}, [isPaused, currentIndex]); // Dependencies re-trigger the effect cleanly
+
 	if (!slides || slides.length === 0) {
 		return <div className="slider-empty">No slides available.</div>;
 	}
 
-	// Handlers to go back and forth
-	const nextSlide = () => {
-		setCurrentIndex((prevIndex) =>
-			prevIndex === slides.length - 1 ? 0 : prevIndex + 1,
-		);
-	};
-
-	const prevSlide = () => {
-		setCurrentIndex((prevIndex) =>
-			prevIndex === 0 ? slides.length - 1 : prevIndex - 1,
-		);
-	};
-
 	return (
-		<div className="slider-container">
-			{/* The window crops everything outside of it */}
+		<div
+			className="slider-container"
+			onMouseEnter={() => setIsPaused(true)} // Pauses timer on cursor enter
+			onMouseLeave={() => setIsPaused(false)} // Resumes timer on cursor leave
+		>
 			<div className="slider-window">
-				{/* The track moves horizontally based on the active index */}
 				<div
 					className="slider-track"
-					style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+					style={{
+						// We shift by (100 / 3)% per index to step exactly 1 card width
+						transform: `translateX(-${currentIndex * (100 / visibleSlides)}%)`,
+					}}
 				>
 					{slides.map((slide) => (
 						<div
@@ -62,9 +83,9 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 				&rarr;
 			</button>
 
-			{/* Slide Indicators / Pagination Dots */}
+			{/* Pagination Dots (Only render up to the max navigable index) */}
 			<div className="slider-dots">
-				{slides.map((_, index) => (
+				{Array.from({ length: maxIndex + 1 }).map((_, index) => (
 					<span
 						key={index}
 						className={`dot ${index === currentIndex ? "active" : ""}`}

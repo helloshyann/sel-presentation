@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-require("./styles/slider.scss");
 var _Slider = require("./components/Slider");
 var _slidesData = require("./data/slidesData");
 function App() {
