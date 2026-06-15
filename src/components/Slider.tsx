@@ -18,17 +18,22 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 	const [isTransitioning, setIsTransitioning] = useState<boolean>(true);
 	const [isPaused, setIsPaused] = useState<boolean>(false);
 
+	// CRITICAL GUARD: Prevents click-smashing from running out of bounds
+	const isClickableRef = useRef<boolean>(true);
+
 	// Create our expanded track array: [ Last Slide, ...All Real Slides, First Slide ]
 	const expandedSlides = [slides[totalRealSlides - 1], ...slides, slides[0]];
 
 	const nextSlide = () => {
-		// Prevent button-smashing during an active transition swap
-		if (!isTransitioning) return;
+		// If the lock is active, reject the click completely
+		if (!isClickableRef.current) return;
+		isClickableRef.current = false; // Engage lock immediately
 		setVirtualIndex((prev) => prev + 1);
 	};
 
 	const prevSlide = () => {
-		if (!isTransitioning) return;
+		if (!isClickableRef.current) return;
+		isClickableRef.current = false; // Engage lock immediately
 		setVirtualIndex((prev) => prev - 1);
 	};
 
@@ -39,10 +44,13 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 			setIsTransitioning(false); // Disables CSS transition animation
 			setVirtualIndex(1); // Instantly snaps back to the real first slide
 		}
-		// Case B: We just slid backward onto the cloned last slide at the very beginning
+		// Case B: Slid backward onto the cloned last slide at the very beginning
 		else if (virtualIndex === 0) {
-			setIsTransitioning(false); // Disables CSS transition animation
-			setVirtualIndex(totalRealSlides); // Instantly snaps to the real last slide
+			setIsTransitioning(false);
+			setVirtualIndex(totalRealSlides);
+		} else {
+			// If we are moving between regular slides, unlock the buttons immediately
+			isClickableRef.current = true;
 		}
 	};
 
@@ -52,21 +60,48 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 			// Force a tiny layout recalculation window, then flip transitions back on
 			const raf = requestAnimationFrame(() => {
 				setIsTransitioning(true);
+				// Release the click lock safely AFTER the slide has reset positions
+				isClickableRef.current = true;
 			});
 			return () => cancelAnimationFrame(raf);
 		}
 	}, [isTransitioning]);
 
-	// Autoplay Loop Logic (10 seconds)
+	// Autoplay Loop Logic + Browser Tab Focus Visibility Guard
 	useEffect(() => {
-		if (isPaused) return;
-		const timer = setInterval(() => {
-			nextSlide();
-		}, 10000);
-		return () => clearInterval(timer);
+		let timer: NodeJS.Timeout;
+
+		const startTimer = () => {
+			if (isPaused) return;
+			timer = setInterval(() => {
+				nextSlide();
+			}, 10000);
+		};
+
+		const stopTimer = () => {
+			clearInterval(timer);
+		};
+
+		// Safety check: Monitor if the user minimizes or changes tabs
+		const handleVisibilityChange = () => {
+			if (document.hidden) {
+				stopTimer(); // Halt everything while tab is backgrounded
+			} else {
+				startTimer(); // Wake up cleanly when they click back
+			}
+		};
+
+		// Initialize
+		startTimer();
+		document.addEventListener("visibilitychange", handleVisibilityChange);
+
+		// Cleanup lifecycle event hooks cleanly
+		return () => {
+			stopTimer();
+			document.removeEventListener("visibilitychange", handleVisibilityChange);
+		};
 	}, [isPaused, virtualIndex, isTransitioning]);
 
-	// Math to map our extended indices back to a clean 0-4 range for our pagination dots
 	const getActiveDotIndex = () => {
 		if (virtualIndex === 0) return totalRealSlides - 1;
 		if (virtualIndex === expandedSlides.length - 1) return 0;
@@ -85,7 +120,6 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 					onTransitionEnd={handleTransitionEnd}
 					style={{
 						transform: `translateX(-${virtualIndex * 100}%)`,
-						// Dynamically remove the transition styling during the 0ms snap reset phase
 						transition: isTransitioning
 							? "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)"
 							: "none",
@@ -129,7 +163,7 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 						key={index}
 						className={`dot ${index === getActiveDotIndex() ? "active" : ""}`}
 						onClick={() => {
-							if (!isTransitioning) return;
+							if (!isTransitioning || !isClickableRef.current) return;
 							setVirtualIndex(index + 1);
 						}}
 					/>

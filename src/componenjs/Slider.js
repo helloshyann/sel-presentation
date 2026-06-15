@@ -42,17 +42,22 @@ var Slider = exports.Slider = function Slider(_ref) {
     isPaused = _useState6[0],
     setIsPaused = _useState6[1];
 
+  // CRITICAL GUARD: Prevents click-smashing from running out of bounds
+  var isClickableRef = (0, _react.useRef)(true);
+
   // Create our expanded track array: [ Last Slide, ...All Real Slides, First Slide ]
   var expandedSlides = [slides[totalRealSlides - 1]].concat(_toConsumableArray(slides), [slides[0]]);
   var nextSlide = function nextSlide() {
-    // Prevent button-smashing during an active transition swap
-    if (!isTransitioning) return;
+    // If the lock is active, reject the click completely
+    if (!isClickableRef.current) return;
+    isClickableRef.current = false; // Engage lock immediately
     setVirtualIndex(function (prev) {
       return prev + 1;
     });
   };
   var prevSlide = function prevSlide() {
-    if (!isTransitioning) return;
+    if (!isClickableRef.current) return;
+    isClickableRef.current = false; // Engage lock immediately
     setVirtualIndex(function (prev) {
       return prev - 1;
     });
@@ -65,10 +70,13 @@ var Slider = exports.Slider = function Slider(_ref) {
       setIsTransitioning(false); // Disables CSS transition animation
       setVirtualIndex(1); // Instantly snaps back to the real first slide
     }
-    // Case B: We just slid backward onto the cloned last slide at the very beginning
+    // Case B: Slid backward onto the cloned last slide at the very beginning
     else if (virtualIndex === 0) {
-      setIsTransitioning(false); // Disables CSS transition animation
-      setVirtualIndex(totalRealSlides); // Instantly snaps to the real last slide
+      setIsTransitioning(false);
+      setVirtualIndex(totalRealSlides);
+    } else {
+      // If we are moving between regular slides, unlock the buttons immediately
+      isClickableRef.current = true;
     }
   };
 
@@ -78,6 +86,8 @@ var Slider = exports.Slider = function Slider(_ref) {
       // Force a tiny layout recalculation window, then flip transitions back on
       var raf = requestAnimationFrame(function () {
         setIsTransitioning(true);
+        // Release the click lock safely AFTER the slide has reset positions
+        isClickableRef.current = true;
       });
       return function () {
         return cancelAnimationFrame(raf);
@@ -85,18 +95,38 @@ var Slider = exports.Slider = function Slider(_ref) {
     }
   }, [isTransitioning]);
 
-  // Autoplay Loop Logic (10 seconds)
+  // Autoplay Loop Logic + Browser Tab Focus Visibility Guard
   (0, _react.useEffect)(function () {
-    if (isPaused) return;
-    var timer = setInterval(function () {
-      nextSlide();
-    }, 10000);
+    var timer;
+    var startTimer = function startTimer() {
+      if (isPaused) return;
+      timer = setInterval(function () {
+        nextSlide();
+      }, 10000);
+    };
+    var stopTimer = function stopTimer() {
+      clearInterval(timer);
+    };
+
+    // Safety check: Monitor if the user minimizes or changes tabs
+    var handleVisibilityChange = function handleVisibilityChange() {
+      if (document.hidden) {
+        stopTimer(); // Halt everything while tab is backgrounded
+      } else {
+        startTimer(); // Wake up cleanly when they click back
+      }
+    };
+
+    // Initialize
+    startTimer();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Cleanup lifecycle event hooks cleanly
     return function () {
-      return clearInterval(timer);
+      stopTimer();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [isPaused, virtualIndex, isTransitioning]);
-
-  // Math to map our extended indices back to a clean 0-4 range for our pagination dots
   var getActiveDotIndex = function getActiveDotIndex() {
     if (virtualIndex === 0) return totalRealSlides - 1;
     if (virtualIndex === expandedSlides.length - 1) return 0;
@@ -117,7 +147,6 @@ var Slider = exports.Slider = function Slider(_ref) {
     onTransitionEnd: handleTransitionEnd,
     style: {
       transform: "translateX(-".concat(virtualIndex * 100, "%)"),
-      // Dynamically remove the transition styling during the 0ms snap reset phase
       transition: isTransitioning ? "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)" : "none"
     }
   }, expandedSlides.map(function (slide, index) {
@@ -152,7 +181,7 @@ var Slider = exports.Slider = function Slider(_ref) {
       key: index,
       className: "dot ".concat(index === getActiveDotIndex() ? "active" : ""),
       onClick: function onClick() {
-        if (!isTransitioning) return;
+        if (!isTransitioning || !isClickableRef.current) return;
         setVirtualIndex(index + 1);
       }
     });
