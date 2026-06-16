@@ -4,6 +4,7 @@
   --dark-blue: #003a5d;
   --grey-blue: #728fa1;
   --green: #40cb6c;
+  --grey: #c3d1dd;
   --off-white: #f2f5f9;
   --white: #ffffff;
   --breakpoint-mobile: 480px;
@@ -14,6 +15,7 @@
   --space-sm: 0.5rem;
   --space-md: 0.75rem;
   --space-lg: 1rem;
+  --space-xl: 1.5rem;
   --space-xxl: 2rem;
   --special-space: 12rem;
   --primary-font: "Inter", sans-serif;
@@ -81,10 +83,8 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-transition: opacity 0.5s ease, -webkit-transform 0.5s ease;
-  transition: opacity 0.5s ease, -webkit-transform 0.5s ease;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  transition: transform 0.5s ease, opacity 0.5s ease, -webkit-transform 0.5s ease;
+  -webkit-transition: all 0.33s ease;
+  transition: all 0.33s ease;
 }
 @media only screen and (min-width: 1024px) {
   .slider-container .slide-card {
@@ -145,7 +145,6 @@
 }
 @media only screen and (min-width: 1024px) {
   .slider-container .slide-card .slide-text-side p {
-    font-size: var(--reg-font);
     margin: 0 0 2rem 0;
   }
 }
@@ -160,8 +159,8 @@
   border-radius: var(--space-xs);
   text-decoration: none;
   cursor: pointer;
-  -webkit-transition: background-color 0.2s ease;
-  transition: background-color 0.2s ease;
+  -webkit-transition: all 0.33s ease;
+  transition: all 0.33s ease;
 }
 .slider-container .slide-card .slide-text-side .slide-button:hover {
   background-color: var(--dark-blue);
@@ -273,8 +272,8 @@
       -ms-flex-pack: center;
           justify-content: center;
   opacity: 0.5;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  -webkit-transition: all 0.33s ease;
+  transition: all 0.33s ease;
   z-index: 10;
 }
 @media only screen and (min-width: 1024px) {
@@ -315,8 +314,8 @@
   border-radius: 50%;
   background: transparent;
   cursor: pointer;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  -webkit-transition: all 0.33s ease;
+  transition: all 0.33s ease;
 }
 .slider-container .slider-dots .toggle-pause-button {
   width: 1rem;

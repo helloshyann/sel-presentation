@@ -3,33 +3,39 @@
 @use "./index.scss" as *;
 
 .features-section-wrapper {
-	margin: var(--space-md);
-	padding: var(--space-md);
+	margin: var(--space-xl) var(--space-md);
+	padding: var(--space-xl) var(--space-md);
+
+	h2 {
+		margin-top: var(--space-xl);
+	}
 
 	@include respond-to("desktop") {
 		margin: var(--space-lg);
-		padding: var(--space-md) var(--special-space);
+		padding: var(--space-lg) var(--special-space);
 	}
 }
 
 .features-uniform-grid {
 	display: grid;
-	grid-template-columns: repeat(6, 1fr);
 
 	gap: 2rem;
 	width: 100%;
+
+	@include respond-to("desktop") {
+		grid-template-columns: repeat(6, 1fr);
+	}
 }
 
 .feature-card {
 	grid-column: span 2;
-	background: #ffffff;
-	border: 1px solid #dbeafe;
-	border-radius: 6px;
+	background: var(--white);
+	border: 1px solid var(--grey);
+	border-radius: 5px;
+	padding: var(--space-lg);
 	box-sizing: border-box;
 	position: relative;
-	transition:
-		transform 0.2s ease,
-		box-shadow 0.2s ease;
+	transition: all 0.33s ease;
 
 	@include respond-to("desktop") {
 		&:nth-child(4),
@@ -38,7 +44,24 @@
 		}
 	}
 	&:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+		background: var(--off-white);
+		border: 1px solid var(--grey-blue);
 	}
+}
+
+.card-tag {
+	text-transform: uppercase;
+	font-family: var(--secondary-font);
+	font-size: var(--small-font);
+	font-weight: var(--thick-font);
+	color: var(--bright-blue);
+}
+
+.card-title {
+	margin: var(--space-sm) 0;
+	font-weight: var(--thick-font);
+}
+
+.card-description {
+	font-size: var(--reg-font);
 }

@@ -31,19 +31,9 @@ function App() {
     className: "nav-item"
   }, /*#__PURE__*/React.createElement("a", {
     className: "nav-link",
-    href: "/app.html"
-  }, "Considerations")), /*#__PURE__*/React.createElement("li", {
-    className: "nav-item"
-  }, /*#__PURE__*/React.createElement("a", {
-    className: "nav-link",
-    href: "/code.html"
-  }, "The Code")), /*#__PURE__*/React.createElement("li", {
-    className: "nav-item"
-  }, /*#__PURE__*/React.createElement("a", {
-    className: "nav-link",
     href: "https://github.com/helloshyann/sel-presentation",
     target: "_blank"
-  }, "The Repo")), /*#__PURE__*/React.createElement("li", {
+  }, "Repository")), /*#__PURE__*/React.createElement("li", {
     className: "nav-item"
   }, /*#__PURE__*/React.createElement("a", {
     className: "nav-link",
@@ -53,6 +43,9 @@ function App() {
     className: "slider-showcase"
   }, /*#__PURE__*/React.createElement(_Slider.Slider, {
     slides: _slidesData.slidesData
-  })), /*#__PURE__*/React.createElement(_FeatureGrid.FeatureGrid, null), /*#__PURE__*/React.createElement("footer", null, /*#__PURE__*/React.createElement("p", null, "Made for SEL")));
+  })), /*#__PURE__*/React.createElement(_FeatureGrid.FeatureGrid, null), /*#__PURE__*/React.createElement("footer", null, /*#__PURE__*/React.createElement("a", {
+    href: "https://selinc.com/",
+    target: "_blank"
+  }, "Made for SEL")));
 }
 var _default = exports.default = App;

@@ -51,8 +51,13 @@ body {
 	height: 100%;
 }
 
-h1 {
+h1,
+h2,
+h3 {
 	font-family: var(--primary-font);
+}
+
+h1 {
 	font-size: var(--small-font);
 	font-weight: var(--standard-font);
 	color: var(--white);
@@ -64,7 +69,6 @@ h1 {
 }
 
 h2 {
-	font-family: var(--primary-font);
 	color: var(--dark-blue);
 	font-size: var(--xl-font);
 	font-weight: var(--standard-font);
@@ -76,18 +80,31 @@ h2 {
 	}
 }
 
+h3 {
+	font-weight: 400;
+}
+
 p {
 	margin: 0;
 	font-family: var(--secondary-font);
 }
 
 footer {
+	margin-top: 4rem;
 	background: var(--dark-blue);
-	color: var(--white);
 	padding: var(--space-md);
 
 	@include respond-to("desktop") {
 		padding: var(--space-md) var(--special-space);
+	}
+
+	a {
+		color: var(--white);
+		font-family: var(--primary-font);
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
 	}
 }
 

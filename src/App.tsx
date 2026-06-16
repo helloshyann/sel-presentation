@@ -27,22 +27,12 @@ function App() {
 							</a>
 						</li>
 						<li className="nav-item">
-							<a className="nav-link" href="/app.html">
-								Considerations
-							</a>
-						</li>
-						<li className="nav-item">
-							<a className="nav-link" href="/code.html">
-								The Code
-							</a>
-						</li>
-						<li className="nav-item">
 							<a
 								className="nav-link"
 								href="https://github.com/helloshyann/sel-presentation"
 								target="_blank"
 							>
-								The Repo
+								Repository
 							</a>
 						</li>
 						<li className="nav-item">
@@ -63,7 +53,9 @@ function App() {
 			</section>
 			<FeatureGrid />
 			<footer>
-				<p>Made for SEL</p>
+				<a href="https://selinc.com/" target="_blank">
+					Made for SEL
+				</a>
 			</footer>
 		</main>
 	);

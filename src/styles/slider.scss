@@ -42,9 +42,7 @@
 		flex-direction: column-reverse;
 		align-items: center;
 
-		transition:
-			transform 0.5s ease,
-			opacity 0.5s ease;
+		transition: all 0.33s ease;
 
 		@include respond-to("desktop") {
 			display: grid;
@@ -89,7 +87,6 @@
 				max-width: 540px;
 
 				@include respond-to("desktop") {
-					font-size: var(--reg-font);
 					margin: 0 0 2rem 0;
 				}
 			}
@@ -105,7 +102,7 @@
 				border-radius: var(--space-xs);
 				text-decoration: none;
 				cursor: pointer;
-				transition: background-color 0.2s ease;
+				transition: all 0.33s ease;
 				&:hover {
 					background-color: var(--dark-blue);
 				}
@@ -203,7 +200,7 @@
 		align-items: center;
 		justify-content: center;
 		opacity: 0.5;
-		transition: all 0.2s ease;
+		transition: all 0.33s ease;
 		z-index: 10;
 
 		@include respond-to("desktop") {
@@ -238,7 +235,7 @@
 			border-radius: 50%;
 			background: transparent;
 			cursor: pointer;
-			transition: all 0.2s ease;
+			transition: all 0.33s ease;
 		}
 
 		.toggle-pause-button {
