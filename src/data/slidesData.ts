@@ -1,4 +1,3 @@
-// Define the shape of a single slide using TypeScript
 export interface SlideItem {
 	id: number;
 	tag: string;
@@ -9,7 +8,6 @@ export interface SlideItem {
 	buttonUrl: string;
 }
 
-// Create an array of mock data using that exact shape
 export const slidesData: SlideItem[] = [
 	{
 		id: 1,
@@ -37,7 +35,7 @@ export const slidesData: SlideItem[] = [
 		tag: "Product",
 		title: "New Ethernet Switches: High Speed, Small Form Factor",
 		description:
-			"Board a rickety airship and navigate through rolling, copper-colored clouds.",
+			"We’re introducing the SEL-2743 and SEL-2744, two new managed Ethernet switches in a compact chassis. The SEL-2744 is our first 10 GigE switch and is ideal for data-intensive applications, while the SEL-2743 is our most economical compact switch. Both offer operational technology (OT) software-defined networking (SDN) or the Rapid Spanning Tree Protocol (RSTP); dual power supplies; and small form-factor pluggable (SFP) transceiver options.",
 		imageUrl: "src/assets/MKTGREN-584_2743_44_Duo_LF_high_01.webp",
 		buttonText: "Learn More",
 		buttonUrl: "https://selinc.com/mktg/2743-2744-managed-ethernet-switches/",

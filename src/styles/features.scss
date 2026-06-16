@@ -1,0 +1,44 @@
+@use "./partials/variables" as *;
+@use "./partials/mixins" as *;
+@use "./index.scss" as *;
+
+.features-section-wrapper {
+	margin: var(--space-md);
+	padding: var(--space-md);
+
+	@include respond-to("desktop") {
+		margin: var(--space-lg);
+		padding: var(--space-md) var(--special-space);
+	}
+}
+
+.features-uniform-grid {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+
+	gap: 2rem;
+	width: 100%;
+}
+
+.feature-card {
+	grid-column: span 2;
+	background: #ffffff;
+	border: 1px solid #dbeafe;
+	border-radius: 6px;
+	box-sizing: border-box;
+	position: relative;
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
+
+	@include respond-to("desktop") {
+		&:nth-child(4),
+		&:nth-child(5) {
+			grid-column: span 3;
+		}
+	}
+	&:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+	}
+}

@@ -79,19 +79,6 @@
 				}
 			}
 
-			h2 {
-				font-family: var(--primary-font);
-				color: var(--dark-blue);
-				font-size: var(--xl-font);
-				font-weight: var(--standard-font);
-				line-height: 1.25;
-				margin: 0 0 1.2rem 0;
-
-				@include respond-to("desktop") {
-					font-size: var(--xxl-font);
-				}
-			}
-
 			p {
 				font-family: var(--secondary-font);
 				color: var(--dark-blue);

@@ -1,5 +1,6 @@
 import { Slider } from "./components/Slider";
 import { slidesData } from "./data/slidesData";
+import { FeatureGrid } from "./components/FeatureGrid";
 
 function App() {
 	return (
@@ -57,10 +58,13 @@ function App() {
 				</nav>
 			</header>
 
-			{/* Injecting our beautiful custom slider */}
-			<section className="interactive-showcase">
+			<section className="slider-showcase">
 				<Slider slides={slidesData} />
 			</section>
+			<FeatureGrid />
+			<footer>
+				<p>Made for SEL</p>
+			</footer>
 		</main>
 	);
 }

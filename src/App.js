@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _Slider = require("./components/Slider");
 var _slidesData = require("./data/slidesData");
+var _FeatureGrid = require("./components/FeatureGrid");
 function App() {
   return /*#__PURE__*/React.createElement("main", {
     className: "page-wrapper"
@@ -49,9 +50,9 @@ function App() {
     href: "https://helloshyann.com",
     target: "_blank"
   }, "Portfolio"))))), /*#__PURE__*/React.createElement("section", {
-    className: "interactive-showcase"
+    className: "slider-showcase"
   }, /*#__PURE__*/React.createElement(_Slider.Slider, {
     slides: _slidesData.slidesData
-  })));
+  })), /*#__PURE__*/React.createElement(_FeatureGrid.FeatureGrid, null), /*#__PURE__*/React.createElement("footer", null, /*#__PURE__*/React.createElement("p", null, "Made for SEL")));
 }
 var _default = exports.default = App;
