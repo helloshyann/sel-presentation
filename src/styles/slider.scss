@@ -4,14 +4,18 @@
 .slider-container {
 	position: relative;
 	width: 100%;
-	max-width: 1024px; // Gives it that wide, cinematic billboard span
+	max-width: 100%;
 	margin: 0 auto;
-	padding: 0 4rem; // Generates breathing room for the floating arrow buttons
+	padding: 0;
 	box-sizing: border-box;
+	background: var(--white);
 
 	.slider-window {
+		position: relative;
 		overflow: hidden;
-		background-color: var(--grey-blue);
+		padding: 2rem 0;
+		width: 100%;
+		min-width: 100%;
 	}
 
 	.slider-track {
@@ -19,28 +23,43 @@
 		flex-direction: row;
 		width: 100%;
 		height: var(--breakpoint-mobile);
+		background-color: var(--off-white);
 	}
 
-	// --- Split Two-Column Slide System ---
 	.slide-card {
+		width: 100%;
+		min-width: 100%;
+
 		flex-shrink: 0;
 		flex-grow: 0;
-		min-width: 100%; // Each main item spans 100% of the display frame
-		width: 100%;
 		height: 100%;
+		background: var(--off-white);
 		display: flex;
-		flex-direction: row; // Split columns
+		flex-direction: row;
 		align-items: center;
 		box-sizing: border-box;
-		padding: 2rem 5rem; // Generous inner breathing room
+		padding: 0 8rem;
+		transition:
+			transform 0.5s ease,
+			opacity 0.5s ease;
 
-		@include respond-to("tablet") {
-			flex-direction: column-reverse; // Flip layout on mobile/tablet frames
-			padding: 2rem;
-			height: auto;
+		.slide-card-inner {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			padding: 2rem 3rem;
+			box-sizing: border-box;
+			border-radius: var(--space-sm);
+			transition: all 0.4s ease;
 		}
 
-		// Left Column Layout
+		@include respond-to("tablet") {
+			flex-direction: column-reverse;
+			padding: 0 1rem;
+		}
+
 		.slide-text-side {
 			flex: 1;
 			padding-right: 3rem;
@@ -55,19 +74,20 @@
 			}
 
 			.product-label {
+				font-family: var(--secondary-font);
 				color: var(--bright-blue);
-				font-weight: 700;
+				font-weight: var(--thick-font);
+				font-size: var(--reg-font);
 				text-transform: uppercase;
-				font-size: 0.85rem;
 				letter-spacing: 1px;
-				margin-bottom: 0.75rem;
+				margin-bottom: var(--space-md);
 			}
 
 			h2 {
 				font-family: var(--primary-font);
 				color: var(--dark-blue);
-				font-size: 2.2rem;
-				font-weight: 600;
+				font-size: var(--xxl-font);
+				font-weight: var(--standard-font);
 				line-height: 1.25;
 				margin: 0 0 1.2rem 0;
 
@@ -77,8 +97,10 @@
 			}
 
 			p {
+				font-family: var(--secondary-font);
 				color: var(--dark-blue);
 				font-size: 1.05rem;
+				font-weight: var(--thin-font);
 				line-height: 1.6;
 				margin: 0 0 2rem 0;
 				max-width: 540px;
@@ -86,22 +108,22 @@
 
 			.slider-button {
 				background-color: var(--bright-blue);
-				color: white;
+				color: var(--white);
 				border: none;
 				padding: 0.75rem 2rem;
-				font-size: 1rem;
-				font-weight: 500;
-				border-radius: var(--space-xxs);
+				font-family: var(--secondary-font);
+				font-size: var(--reg-font);
+				font-weight: var(--standard-font);
+				border-radius: var(--space-xs);
+				text-decoration: none;
 				cursor: pointer;
 				transition: background-color 0.2s ease;
-
 				&:hover {
 					background-color: var(--dark-blue);
 				}
 			}
 		}
 
-		// Right Column Layout
 		.slide-image-side {
 			flex: 1;
 			height: 100%;
@@ -113,11 +135,13 @@
 				max-width: 100%;
 				max-height: 85%;
 				object-fit: contain;
+				@include respond-to("tablet") {
+					max-height: 100%;
+				}
 			}
 		}
 	}
 
-	// --- Round Floating Nav Controls ---
 	.nav-btn {
 		position: absolute;
 		top: 50%;
@@ -126,7 +150,7 @@
 		border: 1px solid #e2e8f0;
 		width: 48px;
 		height: 48px;
-		border-radius: var(--space-xxs);
+		border-radius: 50%;
 		font-size: 1.25rem;
 		color: var(--bright-blue);
 		cursor: pointer;
@@ -139,7 +163,7 @@
 
 		&:hover {
 			background: #f8fafc;
-			box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
 		}
 
 		&.prev {
@@ -150,7 +174,6 @@
 		}
 	}
 
-	// --- Clean Pagination Ring Dots ---
 	.slider-dots {
 		display: flex;
 		justify-content: center;
@@ -159,16 +182,16 @@
 		margin-top: 2rem;
 
 		.dot {
-			width: 10px;
-			height: 10px;
-			border-radius: var(--space-xxs);
+			width: 0.75rem;
+			height: 0.75rem;
+			border-radius: 50%;
 			background: transparent;
 			border: 1px solid var(--bright-blue); // Outlined empty ring look
 			cursor: pointer;
 			transition: all 0.2s ease;
 
 			&.active {
-				background: var(--dark-blue); // Fills cleanly on active
+				background: var(--bright-blue); // Fills cleanly on active
 				transform: scale(1.1);
 			}
 		}

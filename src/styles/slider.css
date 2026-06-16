@@ -5,7 +5,7 @@
   --grey-blue: #728fa1;
   --green: #40cb6c;
   --off-white: #f2f5f9;
-  --white: #fffff;
+  --white: #ffffff;
   --breakpoint-mobile: 480px;
   --breakpoint-tablet: 768px;
   --breakpoint-desktop: 1024px;
@@ -23,27 +23,33 @@
   --lg-font: 1.25rem;
   --xl-font: 1.5rem;
   --xxl-font: 2rem;
+  --thin-font: 300;
+  --standard-font: 500;
+  --thick-font: 700;
 }
 :root h1 {
   font-family: --primary-font;
 }
 :root {
-  --radius-circle: 50%;
   --transition-smooth: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .slider-container {
   position: relative;
   width: 100%;
-  max-width: 1024px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 4rem;
+  padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  background: var(--white);
 }
 .slider-container .slider-window {
+  position: relative;
   overflow: hidden;
-  background-color: var(--grey-blue);
+  padding: 2rem 0;
+  width: 100%;
+  min-width: 100%;
 }
 .slider-container .slider-track {
   display: -webkit-box;
@@ -55,16 +61,18 @@
           flex-direction: row;
   width: 100%;
   height: var(--breakpoint-mobile);
+  background-color: var(--off-white);
 }
 .slider-container .slide-card {
+  width: 100%;
+  min-width: 100%;
   -ms-flex-negative: 0;
       flex-shrink: 0;
   -webkit-box-flex: 0;
       -ms-flex-positive: 0;
           flex-grow: 0;
-  min-width: 100%;
-  width: 100%;
   height: 100%;
+  background: var(--off-white);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -77,16 +85,39 @@
           align-items: center;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  padding: 2rem 5rem;
+  padding: 0 8rem;
+  -webkit-transition: opacity 0.5s ease, -webkit-transform 0.5s ease;
+  transition: opacity 0.5s ease, -webkit-transform 0.5s ease;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transition: transform 0.5s ease, opacity 0.5s ease, -webkit-transform 0.5s ease;
 }
-@media screen and (max-width: var(--breakpoint-tablet)) {
+.slider-container .slide-card .slide-card-inner {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 2rem 3rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: var(--space-sm);
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+@media (max-width: var(--breakpoint-tablet)) {
   .slider-container .slide-card {
     -webkit-box-orient: vertical;
     -webkit-box-direction: reverse;
         -ms-flex-direction: column-reverse;
             flex-direction: column-reverse;
-    padding: 2rem;
-    height: auto;
+    padding: 0 1rem;
   }
 }
 .slider-container .slide-card .slide-text-side {
@@ -108,48 +139,53 @@
       -ms-flex-pack: center;
           justify-content: center;
 }
-@media screen and (max-width: var(--breakpoint-tablet)) {
+@media (max-width: var(--breakpoint-tablet)) {
   .slider-container .slide-card .slide-text-side {
     padding-right: 0;
     margin-top: 1.5rem;
   }
 }
 .slider-container .slide-card .slide-text-side .product-label {
+  font-family: var(--secondary-font);
   color: var(--bright-blue);
-  font-weight: 700;
+  font-weight: var(--thick-font);
+  font-size: var(--reg-font);
   text-transform: uppercase;
-  font-size: 0.85rem;
   letter-spacing: 1px;
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--space-md);
 }
 .slider-container .slide-card .slide-text-side h2 {
   font-family: var(--primary-font);
   color: var(--dark-blue);
-  font-size: 2.2rem;
-  font-weight: 600;
+  font-size: var(--xxl-font);
+  font-weight: var(--standard-font);
   line-height: 1.25;
   margin: 0 0 1.2rem 0;
 }
-@media screen and (max-width: var(--breakpoint-mobile)) {
+@media (max-width: var(--breakpoint-mobile)) {
   .slider-container .slide-card .slide-text-side h2 {
     font-size: 1.6rem;
   }
 }
 .slider-container .slide-card .slide-text-side p {
+  font-family: var(--secondary-font);
   color: var(--dark-blue);
   font-size: 1.05rem;
+  font-weight: var(--thin-font);
   line-height: 1.6;
   margin: 0 0 2rem 0;
   max-width: 540px;
 }
 .slider-container .slide-card .slide-text-side .slider-button {
   background-color: var(--bright-blue);
-  color: white;
+  color: var(--white);
   border: none;
   padding: 0.75rem 2rem;
-  font-size: 1rem;
-  font-weight: 500;
-  border-radius: var(--space-xxs);
+  font-family: var(--secondary-font);
+  font-size: var(--reg-font);
+  font-weight: var(--standard-font);
+  border-radius: var(--space-xs);
+  text-decoration: none;
   cursor: pointer;
   -webkit-transition: background-color 0.2s ease;
   transition: background-color 0.2s ease;
@@ -178,6 +214,11 @@
   -o-object-fit: contain;
      object-fit: contain;
 }
+@media (max-width: var(--breakpoint-tablet)) {
+  .slider-container .slide-card .slide-image-side img {
+    max-height: 100%;
+  }
+}
 .slider-container .nav-btn {
   position: absolute;
   top: 50%;
@@ -187,7 +228,7 @@
   border: 1px solid #e2e8f0;
   width: 48px;
   height: 48px;
-  border-radius: var(--space-xxs);
+  border-radius: 50%;
   font-size: 1.25rem;
   color: var(--bright-blue);
   cursor: pointer;
@@ -208,8 +249,8 @@
 }
 .slider-container .nav-btn:hover {
   background: #f8fafc;
-  -webkit-box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-          box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
 }
 .slider-container .nav-btn.prev {
   left: 1rem;
@@ -231,9 +272,9 @@
   margin-top: 2rem;
 }
 .slider-container .slider-dots .dot {
-  width: 10px;
-  height: 10px;
-  border-radius: var(--space-xxs);
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
   background: transparent;
   border: 1px solid var(--bright-blue);
   cursor: pointer;
@@ -241,7 +282,7 @@
   transition: all 0.2s ease;
 }
 .slider-container .slider-dots .dot.active {
-  background: var(--dark-blue);
+  background: var(--bright-blue);
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
 }

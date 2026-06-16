@@ -24,11 +24,7 @@ var Slider = exports.Slider = function Slider(_ref) {
   if (!slides || slides.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
     className: "slider-empty"
   }, "No slides available.");
-
-  // Real slide count
   var totalRealSlides = slides.length;
-
-  // State tracks our position relative to the expanded track array (Index 1 is the first REAL slide)
   var _useState = (0, _react.useState)(1),
     _useState2 = _slicedToArray(_useState, 2),
     virtualIndex = _useState2[0],
@@ -42,51 +38,40 @@ var Slider = exports.Slider = function Slider(_ref) {
     isPaused = _useState6[0],
     setIsPaused = _useState6[1];
 
-  // CRITICAL GUARD: Prevents click-smashing from running out of bounds
+  // Safety guard to block button-smashing during an active animation frame
   var isClickableRef = (0, _react.useRef)(true);
 
-  // Create our expanded track array: [ Last Slide, ...All Real Slides, First Slide ]
+  // Expanded track array for seamless infinite looping [ Last, Real 1-5, First ]
   var expandedSlides = [slides[totalRealSlides - 1]].concat(_toConsumableArray(slides), [slides[0]]);
   var nextSlide = function nextSlide() {
-    // If the lock is active, reject the click completely
     if (!isClickableRef.current) return;
-    isClickableRef.current = false; // Engage lock immediately
+    isClickableRef.current = false;
     setVirtualIndex(function (prev) {
       return prev + 1;
     });
   };
   var prevSlide = function prevSlide() {
     if (!isClickableRef.current) return;
-    isClickableRef.current = false; // Engage lock immediately
+    isClickableRef.current = false;
     setVirtualIndex(function (prev) {
       return prev - 1;
     });
   };
-
-  // Invisible Reset Handler: Runs automatically whenever a CSS slide transition finishes
   var handleTransitionEnd = function handleTransitionEnd() {
-    // Case A: We just slid forward onto the cloned first slide at the very end
     if (virtualIndex === expandedSlides.length - 1) {
-      setIsTransitioning(false); // Disables CSS transition animation
-      setVirtualIndex(1); // Instantly snaps back to the real first slide
-    }
-    // Case B: Slid backward onto the cloned last slide at the very beginning
-    else if (virtualIndex === 0) {
+      setIsTransitioning(false);
+      setVirtualIndex(1);
+    } else if (virtualIndex === 0) {
       setIsTransitioning(false);
       setVirtualIndex(totalRealSlides);
     } else {
-      // If we are moving between regular slides, unlock the buttons immediately
       isClickableRef.current = true;
     }
   };
-
-  // Re-enable animations on the next tick after an instant snap reset happens
   (0, _react.useEffect)(function () {
     if (!isTransitioning) {
-      // Force a tiny layout recalculation window, then flip transitions back on
       var raf = requestAnimationFrame(function () {
         setIsTransitioning(true);
-        // Release the click lock safely AFTER the slide has reset positions
         isClickableRef.current = true;
       });
       return function () {
@@ -94,34 +79,26 @@ var Slider = exports.Slider = function Slider(_ref) {
       };
     }
   }, [isTransitioning]);
-
-  // Autoplay Loop Logic + Browser Tab Focus Visibility Guard
   (0, _react.useEffect)(function () {
     var timer;
     var startTimer = function startTimer() {
       if (isPaused) return;
       timer = setInterval(function () {
         nextSlide();
-      }, 10000);
+      }, 6000);
     };
     var stopTimer = function stopTimer() {
       clearInterval(timer);
     };
-
-    // Safety check: Monitor if the user minimizes or changes tabs
     var handleVisibilityChange = function handleVisibilityChange() {
       if (document.hidden) {
-        stopTimer(); // Halt everything while tab is backgrounded
+        stopTimer();
       } else {
-        startTimer(); // Wake up cleanly when they click back
+        startTimer();
       }
     };
-
-    // Initialize
     startTimer();
     document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    // Cleanup lifecycle event hooks cleanly
     return function () {
       stopTimer();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
@@ -146,6 +123,7 @@ var Slider = exports.Slider = function Slider(_ref) {
     className: "slider-track",
     onTransitionEnd: handleTransitionEnd,
     style: {
+      // Simple math: Shift left by exactly 100% per index
       transform: "translateX(-".concat(virtualIndex * 100, "%)"),
       transition: isTransitioning ? "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)" : "none"
     }

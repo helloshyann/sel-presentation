@@ -1,16 +1,13 @@
 @use "./variables" as *;
 
 @mixin respond-to($breakpoint) {
+	@if $breakpoint == "tablet" {
+		@media (max-width: var(--breakpoint-tablet)) {
+			@content;
+		}
+	}
 	@if $breakpoint == "mobile" {
-		@media screen and (max-width: var(--breakpoint-mobile)) {
-			@content;
-		}
-	} @else if $breakpoint == "tablet" {
-		@media screen and (max-width: var(--breakpoint-tablet)) {
-			@content;
-		}
-	} @else if $breakpoint == "desktop" {
-		@media screen and (max-width: var(--breakpoint-desktop)) {
+		@media (max-width: var(--breakpoint-mobile)) {
 			@content;
 		}
 	}

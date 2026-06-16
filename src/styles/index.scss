@@ -6,7 +6,7 @@ h1,
 h2 {
 	font-family: var(--primary-font);
 	font-weight: 500;
-	color: var(--text-h);
+	color: var(--dark-blue);
 }
 
 h1 {
@@ -29,19 +29,4 @@ h2 {
 }
 p {
 	margin: 0;
-}
-
-code,
-.counter {
-	font-family: var(--mono);
-	display: inline-flex;
-	border-radius: 4px;
-	color: var(--text-h);
-}
-
-code {
-	font-size: 15px;
-	line-height: 135%;
-	padding: 4px 8px;
-	background: var(--code-bg);
 }
