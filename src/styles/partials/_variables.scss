@@ -20,6 +20,7 @@
 	--space-sm: 0.5rem;
 	--space-md: 0.75rem;
 	--space-lg: 1rem;
+	--space-xxl: 2rem;
 
 	// Fonts
 	--primary-font: "Inter", sans-serif;
@@ -40,11 +41,6 @@
 	--thin-font: 300;
 	--standard-font: 500;
 	--thick-font: 700;
-
-	// Headings
-	h1 {
-		font-family: --primary-font;
-	}
 
 	// Other
 	--transition-smooth: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);

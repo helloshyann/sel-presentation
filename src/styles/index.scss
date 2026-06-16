@@ -1,32 +1,36 @@
-body {
-	margin: 0;
+header {
+	background: var(--dark-blue);
+	color: var(--white);
+	padding: var(--space-md) 8rem;
+	div {
+		display: flex;
+		flex-direction: row;
+		padding-top: 2rem;
+		width: 5rem;
+		height: 5rem;
+		.fake-logo {
+			padding-right: var(--space-sm);
+		}
+	}
 }
 
-h1,
-h2 {
-	font-family: var(--primary-font);
-	font-weight: 500;
-	color: var(--dark-blue);
+body {
+	margin: -2rem 0;
+	height: 100%;
 }
 
 h1 {
-	font-size: 56px;
-	letter-spacing: -1.68px;
-	margin: 32px 0;
-	@media (max-width: 1024px) {
-		font-size: 36px;
-		margin: 20px 0;
-	}
+	font-family: var(--primary-font);
+	font-size: var(--small-font);
+	font-weight: var(--standard-font);
+	color: var(--white);
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
-h2 {
-	font-size: 24px;
-	line-height: 118%;
-	letter-spacing: -0.24px;
-	margin: 0 0 8px;
-	@media (max-width: 1024px) {
-		font-size: 20px;
-	}
-}
+
 p {
 	margin: 0;
 }

@@ -5,8 +5,14 @@ function App() {
 	return (
 		<main className="page-wrapper">
 			<header className="hero-header">
-				<h1>Shyann's Responsive Slider</h1>
-				<p>A single-page showcase for a dynamic slider.</p>
+				<div>
+					<img src="src/assets/srs-fake-logo.png" className="fake-logo" />
+					<h1>
+						<span>Shyann's</span>
+						<span>Responsive</span>
+						<span>Slider</span>
+					</h1>
+				</div>
 			</header>
 
 			{/* Injecting our beautiful custom slider */}

@@ -11,7 +11,10 @@ function App() {
     className: "page-wrapper"
   }, /*#__PURE__*/React.createElement("header", {
     className: "hero-header"
-  }, /*#__PURE__*/React.createElement("h1", null, "Shyann's Responsive Slider"), /*#__PURE__*/React.createElement("p", null, "A single-page showcase for a dynamic slider.")), /*#__PURE__*/React.createElement("section", {
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("img", {
+    src: "src/assets/srs-fake-logo.png",
+    className: "fake-logo"
+  }), /*#__PURE__*/React.createElement("h1", null, /*#__PURE__*/React.createElement("span", null, "Shyann's"), /*#__PURE__*/React.createElement("span", null, "Responsive"), /*#__PURE__*/React.createElement("span", null, "Slider")))), /*#__PURE__*/React.createElement("section", {
     className: "interactive-showcase"
   }, /*#__PURE__*/React.createElement(_Slider.Slider, {
     slides: _slidesData.slidesData
