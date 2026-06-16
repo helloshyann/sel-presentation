@@ -5,6 +5,7 @@
 	position: relative;
 	width: 100%;
 	max-width: 100%;
+
 	margin: 0 auto;
 	padding: 0;
 	box-sizing: border-box;
@@ -24,36 +25,22 @@
 		width: 100%;
 		height: var(--breakpoint-mobile);
 		background-color: var(--off-white);
+		min-height: 35rem;
 	}
 
 	.slide-card {
 		width: 100%;
 		min-width: 100%;
-
-		flex-shrink: 0;
-		flex-grow: 0;
+		max-width: 100%;
 		height: 100%;
 		background: var(--off-white);
-		display: flex;
-		flex-direction: row;
-		align-items: center;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 		box-sizing: border-box;
-		padding: 0 8rem;
+		padding: 0 var(--special-space);
 		transition:
 			transform 0.5s ease,
 			opacity 0.5s ease;
-
-		.slide-card-inner {
-			width: 100%;
-			height: 100%;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			padding: 2rem 3rem;
-			box-sizing: border-box;
-			border-radius: var(--space-sm);
-			transition: all 0.4s ease;
-		}
 
 		@include respond-to("tablet") {
 			flex-direction: column-reverse;
@@ -62,7 +49,7 @@
 
 		.slide-text-side {
 			flex: 1;
-			padding-right: 3rem;
+
 			display: flex;
 			flex-direction: column;
 			align-items: flex-start;
@@ -106,7 +93,7 @@
 				max-width: 540px;
 			}
 
-			.slider-button {
+			.slide-button {
 				background-color: var(--bright-blue);
 				color: var(--white);
 				border: none;
@@ -125,18 +112,43 @@
 		}
 
 		.slide-image-side {
-			flex: 1;
 			height: 100%;
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			padding: 0 var(--space-xxl);
 
 			img {
 				max-width: 100%;
-				max-height: 85%;
+				max-height: 75%;
 				object-fit: contain;
+
 				@include respond-to("tablet") {
 					max-height: 100%;
+				}
+			}
+		}
+
+		&:nth-child(5) {
+			padding: 0 0 0 var(--special-space);
+
+			.slide-image-side {
+				position: relative;
+				width: 100%;
+				max-width: 50vw;
+				padding: 0;
+				img {
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					display: block;
+					height: 100%;
+					min-height: 37.5rem;
+					width: 100%;
+					object-fit: cover;
+					object-position: center center;
 				}
 			}
 		}

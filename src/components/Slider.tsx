@@ -118,7 +118,7 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 								<p>{slide.description}</p>
 								<a
 									href={slide.buttonUrl}
-									className="slider-button"
+									className="slide-button"
 									target={
 										slide.buttonUrl.startsWith("http") ? "_blank" : "_self"
 									}

@@ -38,7 +38,7 @@ export const slidesData: SlideItem[] = [
 		title: "New Ethernet Switches: High Speed, Small Form Factor",
 		description:
 			"Board a rickety airship and navigate through rolling, copper-colored clouds.",
-		imageUrl: "src/assets/MKTGREN-659_487E_3U_RM_LF_01.webp",
+		imageUrl: "src/assets/MKTGREN-584_2743_44_Duo_LF_high_01.webp",
 		buttonText: "Learn More",
 		buttonUrl: "https://selinc.com/mktg/2743-2744-managed-ethernet-switches/",
 	},

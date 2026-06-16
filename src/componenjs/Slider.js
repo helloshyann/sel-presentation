@@ -137,7 +137,7 @@ var Slider = exports.Slider = function Slider(_ref) {
       className: "product-label"
     }, slide.tag), /*#__PURE__*/_react.default.createElement("h2", null, slide.title), /*#__PURE__*/_react.default.createElement("p", null, slide.description), /*#__PURE__*/_react.default.createElement("a", {
       href: slide.buttonUrl,
-      className: "slider-button",
+      className: "slide-button",
       target: slide.buttonUrl.startsWith("http") ? "_blank" : "_self",
       rel: "noopener noreferrer"
     }, slide.buttonText)), /*#__PURE__*/_react.default.createElement("div", {

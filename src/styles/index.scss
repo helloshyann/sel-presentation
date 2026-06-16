@@ -1,7 +1,7 @@
 header {
 	background: var(--dark-blue);
 	color: var(--white);
-	padding: var(--space-md) 8rem;
+	padding: var(--space-md) var(--special-space);
 	.hero-logo {
 		display: flex;
 		flex-direction: row;
