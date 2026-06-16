@@ -11,10 +11,44 @@ function App() {
     className: "page-wrapper"
   }, /*#__PURE__*/React.createElement("header", {
     className: "hero-header"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("img", {
-    src: "src/assets/srs-fake-logo.png",
-    className: "fake-logo"
-  }), /*#__PURE__*/React.createElement("h1", null, /*#__PURE__*/React.createElement("span", null, "Shyann's"), /*#__PURE__*/React.createElement("span", null, "Responsive"), /*#__PURE__*/React.createElement("span", null, "Slider")))), /*#__PURE__*/React.createElement("section", {
+  }, /*#__PURE__*/React.createElement("a", {
+    className: "hero-logo",
+    href: "/index.html"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "src/assets/srs-fake-logo.png"
+  }), /*#__PURE__*/React.createElement("h1", null, /*#__PURE__*/React.createElement("span", null, "Shyann's"), /*#__PURE__*/React.createElement("span", null, "Responsive"), /*#__PURE__*/React.createElement("span", null, "Slider"))), /*#__PURE__*/React.createElement("nav", {
+    className: "navbar"
+  }, /*#__PURE__*/React.createElement("ul", {
+    className: "navbar-list"
+  }, /*#__PURE__*/React.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/React.createElement("a", {
+    className: "nav-link active",
+    "aria-current": "page",
+    href: "/index.html"
+  }, "Home")), /*#__PURE__*/React.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/React.createElement("a", {
+    className: "nav-link",
+    href: "/app.html"
+  }, "Considerations")), /*#__PURE__*/React.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/React.createElement("a", {
+    className: "nav-link",
+    href: "/code.html"
+  }, "The Code")), /*#__PURE__*/React.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/React.createElement("a", {
+    className: "nav-link",
+    href: "https://github.com/helloshyann/sel-presentation",
+    target: "_blank"
+  }, "The Repo")), /*#__PURE__*/React.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/React.createElement("a", {
+    className: "nav-link",
+    href: "https://helloshyann.com",
+    target: "_blank"
+  }, "Portfolio"))))), /*#__PURE__*/React.createElement("section", {
     className: "interactive-showcase"
   }, /*#__PURE__*/React.createElement(_Slider.Slider, {
     slides: _slidesData.slidesData

@@ -2,14 +2,38 @@ header {
 	background: var(--dark-blue);
 	color: var(--white);
 	padding: var(--space-md) 8rem;
-	div {
+	.hero-logo {
 		display: flex;
 		flex-direction: row;
 		padding-top: 2rem;
 		width: 5rem;
 		height: 5rem;
-		.fake-logo {
+		text-decoration: none;
+		img {
 			padding-right: var(--space-sm);
+		}
+	}
+	nav {
+		ul {
+			display: flex;
+			padding: 0;
+			li {
+				padding: 0 2.5rem 0 0;
+				a {
+					font-family: var(--primary-font);
+					font-size: var(--reg-font);
+					font-weight: var(--thin-font);
+					color: var(--white);
+					text-decoration: none;
+					&:hover {
+						text-decoration: underline;
+					}
+				}
+
+				&::marker {
+					color: var(--dark-blue);
+				}
+			}
 		}
 	}
 }

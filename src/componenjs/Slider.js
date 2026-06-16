@@ -68,6 +68,11 @@ var Slider = exports.Slider = function Slider(_ref) {
       isClickableRef.current = true;
     }
   };
+  var getActiveDotIndex = function getActiveDotIndex() {
+    if (virtualIndex === 0) return totalRealSlides - 1;
+    if (virtualIndex === expandedSlides.length - 1) return 0;
+    return virtualIndex - 1;
+  };
   (0, _react.useEffect)(function () {
     if (!isTransitioning) {
       var raf = requestAnimationFrame(function () {
@@ -104,11 +109,6 @@ var Slider = exports.Slider = function Slider(_ref) {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [isPaused, virtualIndex, isTransitioning]);
-  var getActiveDotIndex = function getActiveDotIndex() {
-    if (virtualIndex === 0) return totalRealSlides - 1;
-    if (virtualIndex === expandedSlides.length - 1) return 0;
-    return virtualIndex - 1;
-  };
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "slider-container",
     onMouseEnter: function onMouseEnter() {

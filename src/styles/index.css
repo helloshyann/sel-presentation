@@ -3,7 +3,7 @@ header {
   color: var(--white);
   padding: var(--space-md) 8rem;
 }
-header div {
+header .hero-logo {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -14,9 +14,32 @@ header div {
   padding-top: 2rem;
   width: 5rem;
   height: 5rem;
+  text-decoration: none;
 }
-header div .fake-logo {
+header .hero-logo img {
   padding-right: var(--space-sm);
+}
+header nav ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0;
+}
+header nav ul li {
+  padding: 0 2.5rem 0 0;
+}
+header nav ul li a {
+  font-family: var(--primary-font);
+  font-size: var(--reg-font);
+  font-weight: var(--thin-font);
+  color: var(--white);
+  text-decoration: none;
+}
+header nav ul li a:hover {
+  text-decoration: underline;
+}
+header nav ul li::marker {
+  color: var(--dark-blue);
 }
 
 body {

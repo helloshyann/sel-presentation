@@ -45,6 +45,12 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 		}
 	};
 
+	const getActiveDotIndex = () => {
+		if (virtualIndex === 0) return totalRealSlides - 1;
+		if (virtualIndex === expandedSlides.length - 1) return 0;
+		return virtualIndex - 1;
+	};
+
 	useEffect(() => {
 		if (!isTransitioning) {
 			const raf = requestAnimationFrame(() => {
@@ -85,12 +91,6 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 			document.removeEventListener("visibilitychange", handleVisibilityChange);
 		};
 	}, [isPaused, virtualIndex, isTransitioning]);
-
-	const getActiveDotIndex = () => {
-		if (virtualIndex === 0) return totalRealSlides - 1;
-		if (virtualIndex === expandedSlides.length - 1) return 0;
-		return virtualIndex - 1;
-	};
 
 	return (
 		<div
