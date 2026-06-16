@@ -20,7 +20,7 @@
   --secondary-font: "Open Sans", sans-serif;
   font-size: 16px;
   --tiny-font: 0.5rem;
-  --small-font: 0.75rem;
+  --small-font: 0.85rem;
   --reg-font: 1rem;
   --lg-font: 1.25rem;
   --xl-font: 1.5rem;
@@ -96,9 +96,6 @@
   }
 }
 .slider-container .slide-card .slide-text-side {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -112,8 +109,10 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   padding-right: 0;
-  margin-top: 1.5rem;
 }
 @media only screen and (min-width: 1024px) {
   .slider-container .slide-card .slide-text-side {
@@ -125,40 +124,51 @@
   font-family: var(--secondary-font);
   color: var(--bright-blue);
   font-weight: var(--thick-font);
-  font-size: var(--reg-font);
+  font-size: var(--small-font);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: var(--space-md);
 }
+@media only screen and (min-width: 1024px) {
+  .slider-container .slide-card .slide-text-side .product-label {
+    font-size: var(--reg-font);
+  }
+}
 .slider-container .slide-card .slide-text-side h2 {
   font-family: var(--primary-font);
   color: var(--dark-blue);
-  font-size: var(--xxl-font);
+  font-size: var(--xl-font);
   font-weight: var(--standard-font);
   line-height: 1.25;
   margin: 0 0 1.2rem 0;
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (min-width: 1024px) {
   .slider-container .slide-card .slide-text-side h2 {
-    font-size: 1.6rem;
+    font-size: var(--xxl-font);
   }
 }
 .slider-container .slide-card .slide-text-side p {
   font-family: var(--secondary-font);
   color: var(--dark-blue);
-  font-size: 1.05rem;
+  font-size: var(--small-font);
   font-weight: var(--thin-font);
   line-height: 1.6;
-  margin: 0 0 2rem 0;
+  margin: 0 0 1rem 0;
   max-width: 540px;
+}
+@media only screen and (min-width: 1024px) {
+  .slider-container .slide-card .slide-text-side p {
+    font-size: var(--reg-font);
+    margin: 0 0 2rem 0;
+  }
 }
 .slider-container .slide-card .slide-text-side .slide-button {
   background-color: var(--bright-blue);
   color: var(--white);
   border: none;
-  padding: 0.75rem 2rem;
+  padding: 0.5rem 1.5rem;
   font-family: var(--secondary-font);
-  font-size: var(--reg-font);
+  font-size: var(--small-font);
   font-weight: var(--standard-font);
   border-radius: var(--space-xs);
   text-decoration: none;
@@ -168,6 +178,13 @@
 }
 .slider-container .slide-card .slide-text-side .slide-button:hover {
   background-color: var(--dark-blue);
+}
+@media only screen and (min-width: 1024px) {
+  .slider-container .slide-card .slide-text-side .slide-button {
+    font-size: var(--reg-font);
+    padding: 0.75rem 2rem;
+    margin: 0 0 2rem 0;
+  }
 }
 .slider-container .slide-card .slide-image-side {
   display: -webkit-box;

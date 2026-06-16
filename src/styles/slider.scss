@@ -53,14 +53,12 @@
 		}
 
 		.slide-text-side {
-			flex: 1;
-
 			display: flex;
 			flex-direction: column;
 			align-items: flex-start;
 			justify-content: center;
+			flex: 1;
 			padding-right: 0;
-			margin-top: 1.5rem;
 
 			@include respond-to("desktop") {
 				padding-right: 3rem;
@@ -71,42 +69,51 @@
 				font-family: var(--secondary-font);
 				color: var(--bright-blue);
 				font-weight: var(--thick-font);
-				font-size: var(--reg-font);
+				font-size: var(--small-font);
 				text-transform: uppercase;
 				letter-spacing: 1px;
 				margin-bottom: var(--space-md);
+
+				@include respond-to("desktop") {
+					font-size: var(--reg-font);
+				}
 			}
 
 			h2 {
 				font-family: var(--primary-font);
 				color: var(--dark-blue);
-				font-size: var(--xxl-font);
+				font-size: var(--xl-font);
 				font-weight: var(--standard-font);
 				line-height: 1.25;
 				margin: 0 0 1.2rem 0;
 
-				@include respond-to("mobile") {
-					font-size: 1.6rem;
+				@include respond-to("desktop") {
+					font-size: var(--xxl-font);
 				}
 			}
 
 			p {
 				font-family: var(--secondary-font);
 				color: var(--dark-blue);
-				font-size: 1.05rem;
+				font-size: var(--small-font);
 				font-weight: var(--thin-font);
 				line-height: 1.6;
-				margin: 0 0 2rem 0;
+				margin: 0 0 1rem 0;
 				max-width: 540px;
+
+				@include respond-to("desktop") {
+					font-size: var(--reg-font);
+					margin: 0 0 2rem 0;
+				}
 			}
 
 			.slide-button {
 				background-color: var(--bright-blue);
 				color: var(--white);
 				border: none;
-				padding: 0.75rem 2rem;
+				padding: 0.5rem 1.5rem;
 				font-family: var(--secondary-font);
-				font-size: var(--reg-font);
+				font-size: var(--small-font);
 				font-weight: var(--standard-font);
 				border-radius: var(--space-xs);
 				text-decoration: none;
@@ -114,6 +121,11 @@
 				transition: background-color 0.2s ease;
 				&:hover {
 					background-color: var(--dark-blue);
+				}
+				@include respond-to("desktop") {
+					font-size: var(--reg-font);
+					padding: 0.75rem 2rem;
+					margin: 0 0 2rem 0;
 				}
 			}
 		}
