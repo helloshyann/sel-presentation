@@ -1,7 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+:root {
+  --bright-blue: #1a3fd8;
+  --dark-blue: #003a5d;
+  --grey-blue: #728fa1;
+  --green: #40cb6c;
+  --off-white: #f2f5f9;
+  --white: #ffffff;
+  --breakpoint-mobile: 480px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --space-xxs: 0.125rem;
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 0.75rem;
+  --space-lg: 1rem;
+  --space-xxl: 2rem;
+  --special-space: 12rem;
+  --primary-font: "Inter", sans-serif;
+  --secondary-font: "Open Sans", sans-serif;
+  font-size: 16px;
+  --tiny-font: 0.5rem;
+  --small-font: 0.75rem;
+  --reg-font: 1rem;
+  --lg-font: 1.25rem;
+  --xl-font: 1.5rem;
+  --xxl-font: 2rem;
+  --thin-font: 300;
+  --standard-font: 500;
+  --thick-font: 700;
+  --transition-smooth: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 header {
   background: var(--dark-blue);
   color: var(--white);
-  padding: var(--space-md) var(--special-space);
+  padding: var(--space-md);
+}
+@media only screen and (min-width: 1024px) {
+  header {
+    padding: var(--space-md) var(--special-space);
+  }
 }
 header .hero-logo {
   display: -webkit-box;

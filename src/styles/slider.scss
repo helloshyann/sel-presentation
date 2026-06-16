@@ -34,17 +34,27 @@
 		max-width: 100%;
 		height: 100%;
 		background: var(--off-white);
-		display: grid;
-		grid-template-columns: 1fr 1fr;
+
 		box-sizing: border-box;
-		padding: 0 var(--special-space);
+
+		display: flex;
+		flex-direction: column-reverse;
+		padding: 1rem;
+
 		transition:
 			transform 0.5s ease,
 			opacity 0.5s ease;
 
+		@include respond-to("desktop") {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			padding: 0 var(--special-space);
+		}
+
 		@include respond-to("tablet") {
+			display: flex;
 			flex-direction: column-reverse;
-			padding: 0 1rem;
+			padding: 1rem;
 		}
 
 		.slide-text-side {
@@ -130,25 +140,28 @@
 		}
 
 		&:nth-child(5) {
-			padding: 0 0 0 var(--special-space);
-
-			.slide-image-side {
-				position: relative;
-				width: 100%;
-				max-width: 50vw;
-				padding: 0;
-				img {
-					position: absolute;
-					top: 0;
-					left: 0;
-					right: 0;
-					bottom: 0;
-					display: block;
-					height: 100%;
-					min-height: 37.5rem;
+			@include respond-to("tablet") {
+			}
+			@include respond-to("desktop") {
+				padding: 0 0 0 var(--special-space);
+				.slide-image-side {
+					position: relative;
 					width: 100%;
-					object-fit: cover;
-					object-position: center center;
+					max-width: 50vw;
+					padding: 0;
+					img {
+						position: absolute;
+						top: 0;
+						left: 0;
+						right: 0;
+						bottom: 0;
+						display: block;
+						height: 100%;
+						min-height: 37.5rem;
+						width: 100%;
+						object-fit: cover;
+						object-position: center center;
+					}
 				}
 			}
 		}
@@ -156,10 +169,10 @@
 
 	.nav-btn {
 		position: absolute;
-		top: 50%;
+		top: 20%;
 		transform: translateY(-50%);
-		background: white;
-		border: 1px solid #e2e8f0;
+		background: transparent;
+		border: 1px solid transparent;
 		width: 48px;
 		height: 48px;
 		border-radius: 50%;
@@ -169,9 +182,16 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
 		transition: all 0.2s ease;
 		z-index: 10;
+
+		@include respond-to("desktop") {
+			top: 50%;
+			background: white;
+			border: 1px solid #e2e8f0;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+		}
 
 		&:hover {
 			background: #f8fafc;

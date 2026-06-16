@@ -1,7 +1,15 @@
+@use "./partials/variables" as *;
+@use "./partials/mixins" as *;
+
 header {
 	background: var(--dark-blue);
 	color: var(--white);
-	padding: var(--space-md) var(--special-space);
+	padding: var(--space-md);
+
+	@include respond-to("desktop") {
+		padding: var(--space-md) var(--special-space);
+	}
+
 	.hero-logo {
 		display: flex;
 		flex-direction: row;
