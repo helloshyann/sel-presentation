@@ -5,7 +5,7 @@
 	position: relative;
 	width: 100%;
 	max-width: 100%;
-
+	max-height: 100%;
 	margin: 0 auto;
 	padding: 0;
 	box-sizing: border-box;
@@ -33,13 +33,14 @@
 		min-width: 100%;
 		max-width: 100%;
 		height: 100%;
-		background: var(--off-white);
 
+		background: var(--off-white);
+		padding: 1rem;
 		box-sizing: border-box;
 
 		display: flex;
 		flex-direction: column-reverse;
-		padding: 1rem;
+		align-items: center;
 
 		transition:
 			transform 0.5s ease,
@@ -51,12 +52,6 @@
 			padding: 0 var(--special-space);
 		}
 
-		@include respond-to("tablet") {
-			display: flex;
-			flex-direction: column-reverse;
-			padding: 1rem;
-		}
-
 		.slide-text-side {
 			flex: 1;
 
@@ -64,10 +59,12 @@
 			flex-direction: column;
 			align-items: flex-start;
 			justify-content: center;
+			padding-right: 0;
+			margin-top: 1.5rem;
 
-			@include respond-to("tablet") {
-				padding-right: 0;
-				margin-top: 1.5rem;
+			@include respond-to("desktop") {
+				padding-right: 3rem;
+				margin-top: 0;
 			}
 
 			.product-label {
@@ -122,26 +119,50 @@
 		}
 
 		.slide-image-side {
-			height: 100%;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			padding: 0 var(--space-xxl);
 
-			img {
-				max-width: 100%;
-				max-height: 75%;
-				object-fit: contain;
+			height: 250px;
+			width: 100%;
+			overflow: hidden;
 
-				@include respond-to("tablet") {
-					max-height: 100%;
+			@include respond-to("desktop") {
+				height: 70%;
+				max-height: 100%;
+			}
+
+			img {
+				max-height: 100%;
+				height: 100%;
+
+				object-fit: cover;
+
+				@include respond-to("desktop") {
+					max-width: 100%;
+					width: 100%;
+					object-fit: contain;
 				}
 			}
 		}
 
 		&:nth-child(5) {
-			@include respond-to("tablet") {
+			padding: 0;
+
+			.slide-text-side {
+				padding: 1rem;
+				padding-right: 3rem;
 			}
+			.slide-image-side {
+				padding: 0;
+				height: 100%;
+				img {
+					width: 100%;
+					object-fit: cover;
+				}
+			}
+
 			@include respond-to("desktop") {
 				padding: 0 0 0 var(--special-space);
 				.slide-image-side {
@@ -213,14 +234,42 @@
 		gap: 0.75rem;
 		margin-top: 2rem;
 
+		.toggle-pause-button,
+		.dot {
+			border-radius: 50%;
+			background: transparent;
+			cursor: pointer;
+			transition: all 0.2s ease;
+		}
+
+		.toggle-pause-button {
+			width: 1rem;
+			height: 1rem;
+			position: relative;
+			border: 1px solid var(--bright-blue); // Outlined empty ring look
+			svg {
+				position: absolute;
+				top: 0;
+				left: 0;
+				fill: var(--bright-blue);
+			}
+			&:hover {
+				border: 1px solid var(--dark-blue);
+				background: var(--dark-blue);
+				svg {
+					fill: var(--white);
+				}
+			}
+		}
+
 		.dot {
 			width: 0.75rem;
 			height: 0.75rem;
-			border-radius: 50%;
-			background: transparent;
 			border: 1px solid var(--bright-blue); // Outlined empty ring look
-			cursor: pointer;
-			transition: all 0.2s ease;
+			&:hover {
+				border: 1px solid var(--dark-blue);
+				background: var(--dark-blue);
+			}
 
 			&.active {
 				background: var(--bright-blue); // Fills cleanly on active

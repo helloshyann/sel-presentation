@@ -13,12 +13,14 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 	const totalRealSlides = slides.length;
 	const [virtualIndex, setVirtualIndex] = useState<number>(1);
 	const [isTransitioning, setIsTransitioning] = useState<boolean>(true);
-	const [isPaused, setIsPaused] = useState<boolean>(false);
 
-	// Safety guard to block button-smashing during an active animation frame
+	// Hover state tracker
+	const [isHoverPaused, setIsHoverPaused] = useState<boolean>(false);
+	// NEW: Manual button state tracker
+	const [isManuallyPaused, setIsManuallyPaused] = useState<boolean>(false);
+
 	const isClickableRef = useRef<boolean>(true);
 
-	// Expanded track array for seamless infinite looping [ Last, Real 1-5, First ]
 	const expandedSlides = [slides[totalRealSlides - 1], ...slides, slides[0]];
 
 	const nextSlide = () => {
@@ -45,12 +47,6 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 		}
 	};
 
-	const getActiveDotIndex = () => {
-		if (virtualIndex === 0) return totalRealSlides - 1;
-		if (virtualIndex === expandedSlides.length - 1) return 0;
-		return virtualIndex - 1;
-	};
-
 	useEffect(() => {
 		if (!isTransitioning) {
 			const raf = requestAnimationFrame(() => {
@@ -61,20 +57,29 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 		}
 	}, [isTransitioning]);
 
+	// Autoplay Effect Engine - Hardened Cleanup Routine
 	useEffect(() => {
-		let timer: NodeJS.Timeout;
+		let timer: NodeJS.Timeout | null = null;
 
 		const startTimer = () => {
-			if (isPaused) return;
+			// 1. Explicitly check states BEFORE spinning up a new interval instance
+			if (isHoverPaused || isManuallyPaused) {
+				return;
+			}
+
 			timer = setInterval(() => {
 				nextSlide();
 			}, 6000);
 		};
 
 		const stopTimer = () => {
-			clearInterval(timer);
+			if (timer) {
+				clearInterval(timer);
+				timer = null;
+			}
 		};
 
+		// Tab focus monitoring
 		const handleVisibilityChange = () => {
 			if (document.hidden) {
 				stopTimer();
@@ -83,27 +88,38 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 			}
 		};
 
+		// Initialize timer
 		startTimer();
 		document.addEventListener("visibilitychange", handleVisibilityChange);
 
+		// CRITICAL LIFECYCLE CLEANUP:
+		// This return function runs every single time a dependency changes.
+		// It guarantees the old timer is completely killed before a new state takes over.
 		return () => {
 			stopTimer();
 			document.removeEventListener("visibilitychange", handleVisibilityChange);
 		};
-	}, [isPaused, virtualIndex, isTransitioning]);
+
+		// Add both pause states here so the hook destroys and rebuilds perfectly
+	}, [isHoverPaused, isManuallyPaused, virtualIndex, isTransitioning]);
+
+	const getActiveDotIndex = () => {
+		if (virtualIndex === 0) return totalRealSlides - 1;
+		if (virtualIndex === expandedSlides.length - 1) return 0;
+		return virtualIndex - 1;
+	};
 
 	return (
 		<div
 			className="slider-container"
-			onMouseEnter={() => setIsPaused(true)}
-			onMouseLeave={() => setIsPaused(false)}
+			onMouseEnter={() => setIsHoverPaused(true)}
+			onMouseLeave={() => setIsHoverPaused(false)}
 		>
 			<div className="slider-window">
 				<div
 					className="slider-track"
 					onTransitionEnd={handleTransitionEnd}
 					style={{
-						// Simple math: Shift left by exactly 100% per index
 						transform: `translateX(-${virtualIndex * 100}%)`,
 						transition: isTransitioning
 							? "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)"
@@ -136,14 +152,47 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 				</div>
 			</div>
 
-			<button className="nav-btn prev" onClick={prevSlide}>
-				&larr;
-			</button>
-			<button className="nav-btn next" onClick={nextSlide}>
-				&rarr;
-			</button>
+			{/* --- Control Row --- */}
+			<div className="slider-controls-row">
+				<button
+					className="nav-btn prev"
+					onClick={prevSlide}
+					aria-label="Previous Slide"
+				>
+					&larr;
+				</button>
+
+				<button
+					className="nav-btn next"
+					onClick={nextSlide}
+					aria-label="Next Slide"
+				>
+					&rarr;
+				</button>
+			</div>
 
 			<div className="slider-dots">
+				{/* NEW: Manual Play/Pause Button */}
+				<button
+					className={`toggle-pause-button ${isManuallyPaused ? "paused" : "playing"}`}
+					onClick={() => setIsManuallyPaused(!isManuallyPaused)}
+					aria-label={
+						isManuallyPaused ? "Play slider autoplay" : "Pause slider autoplay"
+					}
+				>
+					{isManuallyPaused ? (
+						// Play Icon SVG
+						<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+							<path d="M8 5v14l11-7z" />
+						</svg>
+					) : (
+						// Pause Icon SVG
+						<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+							<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+						</svg>
+					)}
+				</button>
+
 				{slides.map((_, index) => (
 					<span
 						key={index}

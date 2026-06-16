@@ -33,15 +33,18 @@ var Slider = exports.Slider = function Slider(_ref) {
     _useState4 = _slicedToArray(_useState3, 2),
     isTransitioning = _useState4[0],
     setIsTransitioning = _useState4[1];
+
+  // Hover state tracker
   var _useState5 = (0, _react.useState)(false),
     _useState6 = _slicedToArray(_useState5, 2),
-    isPaused = _useState6[0],
-    setIsPaused = _useState6[1];
-
-  // Safety guard to block button-smashing during an active animation frame
+    isHoverPaused = _useState6[0],
+    setIsHoverPaused = _useState6[1];
+  // NEW: Manual button state tracker
+  var _useState7 = (0, _react.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    isManuallyPaused = _useState8[0],
+    setIsManuallyPaused = _useState8[1];
   var isClickableRef = (0, _react.useRef)(true);
-
-  // Expanded track array for seamless infinite looping [ Last, Real 1-5, First ]
   var expandedSlides = [slides[totalRealSlides - 1]].concat(_toConsumableArray(slides), [slides[0]]);
   var nextSlide = function nextSlide() {
     if (!isClickableRef.current) return;
@@ -68,11 +71,6 @@ var Slider = exports.Slider = function Slider(_ref) {
       isClickableRef.current = true;
     }
   };
-  var getActiveDotIndex = function getActiveDotIndex() {
-    if (virtualIndex === 0) return totalRealSlides - 1;
-    if (virtualIndex === expandedSlides.length - 1) return 0;
-    return virtualIndex - 1;
-  };
   (0, _react.useEffect)(function () {
     if (!isTransitioning) {
       var raf = requestAnimationFrame(function () {
@@ -84,17 +82,27 @@ var Slider = exports.Slider = function Slider(_ref) {
       };
     }
   }, [isTransitioning]);
+
+  // Autoplay Effect Engine - Hardened Cleanup Routine
   (0, _react.useEffect)(function () {
-    var timer;
+    var timer = null;
     var startTimer = function startTimer() {
-      if (isPaused) return;
+      // 1. Explicitly check states BEFORE spinning up a new interval instance
+      if (isHoverPaused || isManuallyPaused) {
+        return;
+      }
       timer = setInterval(function () {
         nextSlide();
       }, 6000);
     };
     var stopTimer = function stopTimer() {
-      clearInterval(timer);
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
     };
+
+    // Tab focus monitoring
     var handleVisibilityChange = function handleVisibilityChange() {
       if (document.hidden) {
         stopTimer();
@@ -102,20 +110,33 @@ var Slider = exports.Slider = function Slider(_ref) {
         startTimer();
       }
     };
+
+    // Initialize timer
     startTimer();
     document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // CRITICAL LIFECYCLE CLEANUP:
+    // This return function runs every single time a dependency changes.
+    // It guarantees the old timer is completely killed before a new state takes over.
     return function () {
       stopTimer();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [isPaused, virtualIndex, isTransitioning]);
+
+    // Add both pause states here so the hook destroys and rebuilds perfectly
+  }, [isHoverPaused, isManuallyPaused, virtualIndex, isTransitioning]);
+  var getActiveDotIndex = function getActiveDotIndex() {
+    if (virtualIndex === 0) return totalRealSlides - 1;
+    if (virtualIndex === expandedSlides.length - 1) return 0;
+    return virtualIndex - 1;
+  };
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "slider-container",
     onMouseEnter: function onMouseEnter() {
-      return setIsPaused(true);
+      return setIsHoverPaused(true);
     },
     onMouseLeave: function onMouseLeave() {
-      return setIsPaused(false);
+      return setIsHoverPaused(false);
     }
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "slider-window"
@@ -123,7 +144,6 @@ var Slider = exports.Slider = function Slider(_ref) {
     className: "slider-track",
     onTransitionEnd: handleTransitionEnd,
     style: {
-      // Simple math: Shift left by exactly 100% per index
       transform: "translateX(-".concat(virtualIndex * 100, "%)"),
       transition: isTransitioning ? "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)" : "none"
     }
@@ -146,15 +166,45 @@ var Slider = exports.Slider = function Slider(_ref) {
       src: slide.imageUrl,
       alt: slide.title
     })));
-  }))), /*#__PURE__*/_react.default.createElement("button", {
+  }))), /*#__PURE__*/_react.default.createElement("div", {
+    className: "slider-controls-row"
+  }, /*#__PURE__*/_react.default.createElement("button", {
     className: "nav-btn prev",
-    onClick: prevSlide
+    onClick: prevSlide,
+    "aria-label": "Previous Slide"
   }, "\u2190"), /*#__PURE__*/_react.default.createElement("button", {
     className: "nav-btn next",
-    onClick: nextSlide
-  }, "\u2192"), /*#__PURE__*/_react.default.createElement("div", {
+    onClick: nextSlide,
+    "aria-label": "Next Slide"
+  }, "\u2192")), /*#__PURE__*/_react.default.createElement("div", {
     className: "slider-dots"
-  }, slides.map(function (_, index) {
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    className: "toggle-pause-button ".concat(isManuallyPaused ? "paused" : "playing"),
+    onClick: function onClick() {
+      return setIsManuallyPaused(!isManuallyPaused);
+    },
+    "aria-label": isManuallyPaused ? "Play slider autoplay" : "Pause slider autoplay"
+  }, isManuallyPaused ?
+  /*#__PURE__*/
+  // Play Icon SVG
+  _react.default.createElement("svg", {
+    viewBox: "0 0 24 24",
+    fill: "currentColor",
+    width: "14",
+    height: "14"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    d: "M8 5v14l11-7z"
+  })) :
+  /*#__PURE__*/
+  // Pause Icon SVG
+  _react.default.createElement("svg", {
+    viewBox: "0 0 24 24",
+    fill: "currentColor",
+    width: "14",
+    height: "14"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    d: "M6 19h4V5H6v14zm8-14v14h4V5h-4z"
+  }))), slides.map(function (_, index) {
     return /*#__PURE__*/_react.default.createElement("span", {
       key: index,
       className: "dot ".concat(index === getActiveDotIndex() ? "active" : ""),
