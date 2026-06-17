@@ -57,7 +57,7 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 
 	// Autoplay Effect Engine
 	useEffect(() => {
-		let timer: NodeJS.Timeout | null = null;
+		let timer: ReturnType<typeof setInterval> | null = null;
 
 		const startTimer = () => {
 			// Check states BEFORE spinning up a new interval instance
