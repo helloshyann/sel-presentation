@@ -55,7 +55,7 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 		}
 	}, [isTransitioning]);
 
-	// Autoplay Effect Engine
+	// Autoplay Effect
 	useEffect(() => {
 		let timer: ReturnType<typeof setInterval> | null = null;
 
@@ -90,14 +90,13 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 		startTimer();
 		document.addEventListener("visibilitychange", handleVisibilityChange);
 
-		// This return function runs every single time a dependency changes.
-		// It guarantees the old timer is completely killed before a new state takes over.
+		// Guarantee old timer is completely killed before a new state takes over
 		return () => {
 			stopTimer();
 			document.removeEventListener("visibilitychange", handleVisibilityChange);
 		};
 
-		// Add both pause states so the hook destroys and rebuilds perfectly
+		// Add both pause states
 	}, [isHoverPaused, isManuallyPaused, virtualIndex, isTransitioning]);
 
 	const getActiveDotIndex = () => {

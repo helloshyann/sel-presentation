@@ -80,7 +80,7 @@ var Slider = exports.Slider = function Slider(_ref) {
     }
   }, [isTransitioning]);
 
-  // Autoplay Effect Engine
+  // Autoplay Effect
   (0, _react.useEffect)(function () {
     var timer = null;
     var startTimer = function startTimer() {
@@ -112,14 +112,13 @@ var Slider = exports.Slider = function Slider(_ref) {
     startTimer();
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    // This return function runs every single time a dependency changes.
-    // It guarantees the old timer is completely killed before a new state takes over.
+    // Guarantee old timer is completely killed before a new state takes over
     return function () {
       stopTimer();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
 
-    // Add both pause states so the hook destroys and rebuilds perfectly
+    // Add both pause states
   }, [isHoverPaused, isManuallyPaused, virtualIndex, isTransitioning]);
   var getActiveDotIndex = function getActiveDotIndex() {
     if (virtualIndex === 0) return totalRealSlides - 1;
