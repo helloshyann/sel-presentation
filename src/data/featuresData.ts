@@ -24,7 +24,7 @@ export const featuresData: FeatureItem[] = [
 		question:
 			"How do we handle responsive presentation across desktop, tablet, and mobile displays?",
 		why: "Wide, multi-column layouts look great on desktop, but can break aspect ratios and overflow off-screen on tablets and mobile viewports.",
-		how: "We can utilize responsive SCSS breakpoint mixins to detect the user's current screen size and apply single-column styles when specific screen sizes are detected.",
+		how: "We can utilize responsive SCSS breakpoint mixins to apply single-column styles when specific screen sizes are detected.",
 	},
 	{
 		id: 3,
@@ -32,8 +32,8 @@ export const featuresData: FeatureItem[] = [
 		title: "Smart Autoplay with Reading Protection",
 		question:
 			"How do we safely automate slide progression without frustrating someone who is actively trying to read the text or click a button?",
-		why: "Auto-advancing slides while a user is actively reading or trying to click a CTA button creates an incredibly frustrating user experience.",
-		how: "This requires two solutions. First, we have the interval timer automatically pause when it detects a user's mouse has entered the element. We also add a manual play/pause toggle button with the slider's navigation dots for further accessability. Now, if a user hovers over a card or clicks the pause button, the automatic timer freezes and won't wake up until the user moves their move away or hits play again.",
+		why: "Auto-advancing slides while a user is actively reading or trying to click a CTA button creates a frustrating user experience.",
+		how: "First, we have the interval timer automatically pause when it detects the user's cursor has entered the element. Then, we add a manual play/pause toggle button with the slider's navigation dots for further accessability. Now, if a user hovers over a card or clicks the pause button, the automatic timer freezes and won't wake up until the user moves their move away or hits play again.",
 	},
 	{
 		id: 4,
@@ -41,7 +41,7 @@ export const featuresData: FeatureItem[] = [
 		title: "Button Smash Protection",
 		question:
 			"How do we prevent the slider from visually breaking if a user starts rapidly clicking through the navigation arrows?",
-		why: "If a user gets impatient and quickly clicks through the navigation while the slider is in the middle of a moving transition, the system can get confused about which slide it is displaying and cause layout drifts or blank sliddes.",
+		why: "If a user gets impatient and quickly clicks through the navigation while the slider is in the middle of a moving transition, the system can get confused about which slide it is displaying and cause layout drifts or blank slides.",
 		how: "We introduce a safety lock that allows the system to temporarily ignore extra clicks when a user clicks an arrow button, allowing  time for the current slide to finish transitioning. Once it stops, the system unlocks the buttons for the next click.",
 	},
 	{
