@@ -112,7 +112,6 @@ var Slider = exports.Slider = function Slider(_ref) {
     startTimer();
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    // CRITICAL LIFECYCLE CLEANUP:
     // This return function runs every single time a dependency changes.
     // It guarantees the old timer is completely killed before a new state takes over.
     return function () {
@@ -120,7 +119,7 @@ var Slider = exports.Slider = function Slider(_ref) {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
 
-    // Add both pause states here so the hook destroys and rebuilds perfectly
+    // Add both pause states so the hook destroys and rebuilds perfectly
   }, [isHoverPaused, isManuallyPaused, virtualIndex, isTransitioning]);
   var getActiveDotIndex = function getActiveDotIndex() {
     if (virtualIndex === 0) return totalRealSlides - 1;

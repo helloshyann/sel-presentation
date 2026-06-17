@@ -90,7 +90,6 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 		startTimer();
 		document.addEventListener("visibilitychange", handleVisibilityChange);
 
-		// CRITICAL LIFECYCLE CLEANUP:
 		// This return function runs every single time a dependency changes.
 		// It guarantees the old timer is completely killed before a new state takes over.
 		return () => {
@@ -98,7 +97,7 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 			document.removeEventListener("visibilitychange", handleVisibilityChange);
 		};
 
-		// Add both pause states here so the hook destroys and rebuilds perfectly
+		// Add both pause states so the hook destroys and rebuilds perfectly
 	}, [isHoverPaused, isManuallyPaused, virtualIndex, isTransitioning]);
 
 	const getActiveDotIndex = () => {
