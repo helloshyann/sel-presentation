@@ -16,7 +16,7 @@ function App() {
     className: "hero-logo",
     href: "/index.html"
   }, /*#__PURE__*/React.createElement("img", {
-    src: "public/assets/srs-fake-logo.png"
+    src: "/assets/srs-fake-logo.png"
   }), /*#__PURE__*/React.createElement("h1", null, /*#__PURE__*/React.createElement("span", null, "Shyann's"), /*#__PURE__*/React.createElement("span", null, "Responsive"), /*#__PURE__*/React.createElement("span", null, "Slider"))), /*#__PURE__*/React.createElement("nav", {
     className: "navbar"
   }, /*#__PURE__*/React.createElement("ul", {
