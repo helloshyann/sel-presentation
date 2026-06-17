@@ -11,7 +11,9 @@ var FeatureCard = exports.FeatureCard = function FeatureCard(_ref) {
   var card = _ref.card;
   var tag = card.tag,
     title = card.title,
-    description = card.description;
+    question = card.question,
+    why = card.why,
+    how = card.how;
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "feature-card uniform-layout-card"
   }, /*#__PURE__*/_react.default.createElement("div", {
@@ -21,6 +23,10 @@ var FeatureCard = exports.FeatureCard = function FeatureCard(_ref) {
   }, tag), /*#__PURE__*/_react.default.createElement("h3", {
     className: "card-title"
   }, title), /*#__PURE__*/_react.default.createElement("p", {
+    className: "card-question"
+  }, question), /*#__PURE__*/_react.default.createElement("h4", null, "Why?"), /*#__PURE__*/_react.default.createElement("p", {
     className: "card-description"
-  }, description)));
+  }, why), /*#__PURE__*/_react.default.createElement("h4", null, "How?"), /*#__PURE__*/_react.default.createElement("p", {
+    className: "card-description"
+  }, how)));
 };

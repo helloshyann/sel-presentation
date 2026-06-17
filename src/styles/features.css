@@ -89,7 +89,8 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
   font-family: var(--primary-font);
 }
 
@@ -126,6 +127,13 @@ h2 {
 
 h3 {
   font-weight: 400;
+}
+
+h4 {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--bright-blue);
+  margin: var(--space-md) 0;
 }
 
 p {
@@ -206,8 +214,8 @@ footer a:hover {
 }
 @media only screen and (min-width: 1024px) {
   .features-section-wrapper {
-    margin: var(--space-lg);
-    padding: var(--space-lg) var(--special-space);
+    margin: 0 var(--space-md);
+    padding: 0 var(--special-space);
   }
 }
 
@@ -259,8 +267,14 @@ footer a:hover {
 .card-title {
   margin: var(--space-sm) 0;
   font-weight: var(--thick-font);
+  color: var(--dark-blue);
+}
+
+.card-question {
+  font-size: var(--small-font);
+  font-weight: var(--thick-font);
 }
 
 .card-description {
-  font-size: var(--reg-font);
+  font-size: var(--small-font);
 }

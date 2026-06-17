@@ -33,13 +33,10 @@ var Slider = exports.Slider = function Slider(_ref) {
     _useState4 = _slicedToArray(_useState3, 2),
     isTransitioning = _useState4[0],
     setIsTransitioning = _useState4[1];
-
-  // Hover state tracker
   var _useState5 = (0, _react.useState)(false),
     _useState6 = _slicedToArray(_useState5, 2),
     isHoverPaused = _useState6[0],
     setIsHoverPaused = _useState6[1];
-  // NEW: Manual button state tracker
   var _useState7 = (0, _react.useState)(false),
     _useState8 = _slicedToArray(_useState7, 2),
     isManuallyPaused = _useState8[0],
@@ -83,11 +80,11 @@ var Slider = exports.Slider = function Slider(_ref) {
     }
   }, [isTransitioning]);
 
-  // Autoplay Effect Engine - Hardened Cleanup Routine
+  // Autoplay Effect Engine
   (0, _react.useEffect)(function () {
     var timer = null;
     var startTimer = function startTimer() {
-      // 1. Explicitly check states BEFORE spinning up a new interval instance
+      // Check states BEFORE spinning up a new interval instance
       if (isHoverPaused || isManuallyPaused) {
         return;
       }

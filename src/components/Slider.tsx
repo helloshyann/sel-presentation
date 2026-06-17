@@ -14,9 +14,7 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 	const [virtualIndex, setVirtualIndex] = useState<number>(1);
 	const [isTransitioning, setIsTransitioning] = useState<boolean>(true);
 
-	// Hover state tracker
 	const [isHoverPaused, setIsHoverPaused] = useState<boolean>(false);
-	// NEW: Manual button state tracker
 	const [isManuallyPaused, setIsManuallyPaused] = useState<boolean>(false);
 
 	const isClickableRef = useRef<boolean>(true);
@@ -57,12 +55,12 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 		}
 	}, [isTransitioning]);
 
-	// Autoplay Effect Engine - Hardened Cleanup Routine
+	// Autoplay Effect Engine
 	useEffect(() => {
 		let timer: NodeJS.Timeout | null = null;
 
 		const startTimer = () => {
-			// 1. Explicitly check states BEFORE spinning up a new interval instance
+			// Check states BEFORE spinning up a new interval instance
 			if (isHoverPaused || isManuallyPaused) {
 				return;
 			}
@@ -172,7 +170,6 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 			</div>
 
 			<div className="slider-dots">
-				{/* NEW: Manual Play/Pause Button */}
 				<button
 					className={`toggle-pause-button ${isManuallyPaused ? "paused" : "playing"}`}
 					onClick={() => setIsManuallyPaused(!isManuallyPaused)}

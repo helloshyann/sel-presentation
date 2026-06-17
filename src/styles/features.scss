@@ -11,8 +11,8 @@
 	}
 
 	@include respond-to("desktop") {
-		margin: var(--space-lg);
-		padding: var(--space-lg) var(--special-space);
+		margin: 0 var(--space-md);
+		padding: 0 var(--special-space);
 	}
 }
 
@@ -60,8 +60,14 @@
 .card-title {
 	margin: var(--space-sm) 0;
 	font-weight: var(--thick-font);
+	color: var(--dark-blue);
+}
+
+.card-question {
+	font-size: var(--small-font);
+	font-weight: var(--thick-font);
 }
 
 .card-description {
-	font-size: var(--reg-font);
+	font-size: var(--small-font);
 }
