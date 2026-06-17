@@ -7,7 +7,7 @@ function App() {
 		<main className="page-wrapper">
 			<header className="hero-header">
 				<a className="hero-logo" href="/index.html">
-					<img src="src/assets/srs-fake-logo.png" />
+					<img src="public/assets/srs-fake-logo.png" />
 					<h1>
 						<span>Shyann's</span>
 						<span>Responsive</span>
